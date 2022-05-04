@@ -1,1 +1,0 @@
-3x3.ivy(329): error: token 'invariant': syntax error

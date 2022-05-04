@@ -4,8 +4,8 @@ attribute method = mc
 
 # type zone_names = {a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r,test}
 type zone_names = {a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r}
-type rel = {lt,eq,gt,p1,m1,null}
-# <d, =d, >d, =d+1, =d-1
+type rel = {lt,eq,gt,p1,m1,lt1,gt1,null}
+# <d, =d, >d, =d+1, =d-1, <d-1, >d+1
 
 # x_rel indicates x (rel) x_dest. 
 # i.e. x_rel = gt => x > x_dest
@@ -86,28 +86,25 @@ object spec = {
     zone(z).c04 := (zone(z).x_rel = eq & zone(z).y_rel = m1);
     zone(z).c05 := (zone(z).x_rel = m1 & zone(z).y_rel = eq);
     
-    zone(z).c06 := (zone(z).x_rel = gt | zone(z).x_rel = eq | zone(z).x_rel = p1);
-    zone(z).c07 := (zone(z).y_rel = lt | zone(z).y_rel = eq | zone(z).y_rel = m1);
+    zone(z).c06 := (zone(z).x_rel = gt | zone(z).x_rel = eq | zone(z).x_rel = p1 | zone(z).x_rel = gt1);
+    zone(z).c07 := (zone(z).y_rel = lt | zone(z).y_rel = eq | zone(z).y_rel = m1 | zone(z).y_rel = lt1);
     
-    zone(z).c08 := (zone(z).y_rel = gt | zone(z).y_rel = eq | zone(z).y_rel = p1);
-    zone(z).c09 := (zone(z).x_rel = lt | zone(z).x_rel = eq | zone(z).x_rel = m1);
+    zone(z).c08 := (zone(z).y_rel = gt | zone(z).y_rel = eq | zone(z).y_rel = p1 | zone(z).y_rel = gt1);
+    zone(z).c09 := (zone(z).x_rel = lt | zone(z).x_rel = eq | zone(z).x_rel = m1 | zone(z).x_rel = lt1);
     
-    zone(z).c10 := (zone(z).x_rel = lt);
-    zone(z).c11 := ((zone(z).x_rel = lt | zone(z).x_rel = m1) & zone(z).y_rel = m1);
+    zone(z).c10 := (zone(z).x_rel = lt1);
+    zone(z).c11 := ((zone(z).x_rel = lt | zone(z).x_rel = m1 | zone(z).x_rel = lt1) & zone(z).y_rel = m1);
     
-    zone(z).c12 := (zone(z).y_rel = lt | zone(z).y_rel = m1);
+    zone(z).c12 := (zone(z).y_rel = lt | zone(z).y_rel = m1 | zone(z).y_rel = lt1);
     
-    zone(z).c13 := ((zone(z).x_rel = eq | zone(z).x_rel = gt | zone(z).x_rel = p1)& zone(z).y_rel = m1);
+    zone(z).c13 := ((zone(z).x_rel = eq | zone(z).x_rel = gt | zone(z).x_rel = p1 | zone(z).x_rel = gt1)& zone(z).y_rel = m1);
     zone(z).c14 := (zone(z).y_rel = m1 & zone(z).x_rel = eq);
     
     zone(z).c15 := (zone(z).x_rel = eq);
-    zone(z).c16 := ((zone(z).x_rel = m1 | zone(z).x_rel = lt | zone(z).x_rel = eq) & zone(z).y_rel ~= m1);
+    zone(z).c16 := ((zone(z).x_rel = m1 | zone(z).x_rel = lt | zone(z).x_rel = eq | zone(z).x_rel = lt1) & zone(z).y_rel ~= m1);
     zone(z).c17 := (zone(z).x_rel = m1 & zone(z).y_rel ~= m1);
     
-    zone(z).c18 := ((zone(z).y_rel = lt | zone(z).y_rel = eq | zone(z).y_rel = m1) & (zone(z).x_rel = lt | zone(z).x_rel = eq | zone(z).x_rel = m1));
-    
-    
-    
+    zone(z).c18 := ((zone(z).y_rel = lt | zone(z).y_rel = eq | zone(z).y_rel = m1 | zone(z).y_rel = lt1) & (zone(z).x_rel = lt | zone(z).x_rel = eq | zone(z).x_rel = m1 | zone(z).x_rel = lt1));
     
     zone(z).ok := true;
     
